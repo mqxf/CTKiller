@@ -1,0 +1,21 @@
+<ion-content>
+  <div class="login-card">
+    <ion-card mode="ios">
+      <img src="assets/class.jpg" style="width:100%">
+      <ion-list style="background:none">
+        <ion-list-header style="display:block; text-align:center;">
+          <ion-label style="font-size:30px; margin-top:15px">Login</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label position="floating">username / email</ion-label>
+          <ion-input [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">password</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+        <ion-button expand="block" style="margin:20px; font-weight:bold; font-size:15px;" (click)="login()">Log in</ion-button>
+      </ion-list>
+    </ion-card>
+  </div>
+</ion-content>

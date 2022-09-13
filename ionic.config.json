@@ -1,0 +1,7 @@
+{
+  "name": "Century Tech Solver",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
