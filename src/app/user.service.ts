@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
-import { getToken, refreshToken } from './api/network';
+import { getToken, refreshToken, Subject, SubjectGroups, subjects } from './api/network';
 import { sleep } from './api/utils';
 import jwt from "jsonwebtoken";
+
+interface Organisation {
+  organisationId: string
+  organisationName: string
+  parentId: string
+  isPrimary?: boolean
+  roles: string[]
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +19,10 @@ export class UserService {
   token: string = "";
   userId: string = "";
   loginSessionId: string = "";
+  organisationId: string = "";
+  organisationName: string = "";
+  subjects: Subject[];
+  subjectGroups: SubjectGroups[];
   private refreshToken: string = "";
 
   constructor() { }
@@ -28,6 +40,9 @@ export class UserService {
       this.refreshToken = res.refreshToken;
       localStorage.setItem("token", this.refreshToken);
       this.userInit();
+      let subRes = await subjects(this.userId, this.token);
+      this.subjects = subRes.data.userSubjects.subjects;
+      this.subjectGroups = subRes.data.userSubjects.subjectGroups;
       this.regenToken();
       return true;
     }
@@ -69,6 +84,13 @@ export class UserService {
     let user = jwt.decode(this.token) as jwt.JwtPayload;
     this.userId = user.sub!;
     this.loginSessionId = user.context.loginSessionId;
+    let organisations: Organisation[] = user.context.organisations;
+    let mainOrg: Organisation = organisations.find(org => org.isPrimary);
+    if (mainOrg === null || !mainOrg.roles.includes("student") || user.context.isTest) {
+      this.logout();
+    }
+    this.organisationId = mainOrg.organisationId;
+    this.organisationName = mainOrg.organisationName;
   }
 
   logout() {
@@ -76,6 +98,8 @@ export class UserService {
     this.userId = "";
     this.token = "";
     this.refreshToken = "";
+    this.organisationId = "";
+    this.organisationName = "";
     localStorage.removeItem("token");
   }
 
