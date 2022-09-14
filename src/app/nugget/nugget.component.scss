@@ -1,0 +1,46 @@
+.ios {
+    width: 50vw;
+    
+    
+
+}
+.card {
+    display: flex;
+  }
+  
+  .card {
+    width: 100%;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .card p {
+    min-height: 80px;
+    padding: 0 39px 0 39px;
+  }
+  
+  .strategy--logo {
+    position: absolute;
+    top: 383px;
+    left: 607px;
+    width: 96px;
+    height: 48px;
+    background-color: #5a471b;
+    border-top-right-radius: 48px;
+    border-top-left-radius: 48px;
+  }
+  
+  .strategy {
+    margin-top: 135px;
+    background-color: #5a471b;
+  }
+  
+  .crop--marketing {
+    margin-top: 135px;
+    background-color: #9fa374;
+  }
+  
+  .risk--mgmt {
+    margin-top: 135px;
+    background-color: #666;
+  }
