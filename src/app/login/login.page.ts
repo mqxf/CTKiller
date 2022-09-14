@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   async login() {
     let login = await this.user.login(this.username, this.password);
     if (login) {
-      this.router.navigate(['/tabs'])
+      this.router.navigate(['/solver'])
     }
   }
 
